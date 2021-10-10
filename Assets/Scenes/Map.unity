@@ -152,8 +152,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1ceae5a862c7194ba3e57e1d23cab21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _currentLevel: Map
-  _sceneNameSaved: 
+  _gamescene: Map
+  _loadingScene: 
 --- !u!4 &7928860
 Transform:
   m_ObjectHideFlags: 0

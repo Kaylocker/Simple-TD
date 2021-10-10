@@ -4,19 +4,19 @@ using UnityEngine.SceneManagement;
 
 public class SceneLoader : MonoBehaviour
 {
-    [SerializeField] private string _currentLevel;
-    [SerializeField] private string _sceneNameSaved;
+    [SerializeField] private string _gamescene;
+    [SerializeField] private string _loadingScene;
 
     private readonly LevelNameData _levelNameData = new LevelNameData();
 
     private void Start()
     {
-        if (!string.IsNullOrEmpty(_sceneNameSaved))
+        if (!string.IsNullOrEmpty(_loadingScene))
         {
-            StartCoroutine(AddScene(_sceneNameSaved));
+            StartCoroutine(AddScene(_loadingScene));
         }
 
-        _sceneNameSaved = _currentLevel;
+        _loadingScene = _gamescene;
     }
 
     public void Load()
@@ -31,7 +31,7 @@ public class SceneLoader : MonoBehaviour
     {
         yield return StartCoroutine(AddScene(sceneName));
 
-        if (!string.IsNullOrEmpty(_sceneNameSaved))
+        if (!string.IsNullOrEmpty(_loadingScene))
         {
             yield return StartCoroutine(RemoveOldscene());
             yield return StartCoroutine(UnloadOldScene());
@@ -53,7 +53,7 @@ public class SceneLoader : MonoBehaviour
 
     private IEnumerator RemoveOldscene()
     {
-        AsyncOperation asyncOperation = SceneManager.UnloadSceneAsync(_sceneNameSaved);
+        AsyncOperation asyncOperation = SceneManager.UnloadSceneAsync(_loadingScene);
 
         while (!asyncOperation.isDone)
         {
