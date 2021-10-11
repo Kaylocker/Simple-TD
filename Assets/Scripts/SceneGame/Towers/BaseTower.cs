@@ -4,44 +4,71 @@ using UnityEngine;
 
 public class BaseTower : MonoBehaviour
 {
-    [SerializeField] private GameObject _menu;
+    [SerializeField] private GameObject _menuPrefab;
     [SerializeField] private List<TowerSideTrigger> _triggers;
 
+    private Tower _tower;
+    private SpriteRenderer _sprite;
     private BoxCollider2D _baseCollider;
     private TowerMenu _towerMenu;
     private Vector3 _positionMenu;
-    private float _yOffSet;
-    private bool _isMenuActive, _isMenuActivated;
+    private bool _isMenuActive, _isTowerPlaced;
     private const int LEFT = 0, UP = 1, RIGHT = 2, DOWN = 3;
 
+    public bool IsTowerPlaced { get => _isTowerPlaced; }
 
     private void Start()
     {
         _positionMenu = transform.position;
         _baseCollider = GetComponent<BoxCollider2D>();
+        _sprite = GetComponent<SpriteRenderer>();
     }
 
     private void OnMouseDown()
     {
-        if(_isMenuActivated)
+        if (_towerMenu != null && !_towerMenu.gameObject.activeInHierarchy)
+        {
+            _towerMenu.gameObject.SetActive(true);
+            _isMenuActive = true;
+            return;
+
+        }
+
+        if (_isMenuActive || _isTowerPlaced)
         {
             return;
-        }    
+        }
+
+        _sprite.enabled = true;
 
         FindMenuPosition();
-        GameObject menu = Instantiate(_menu, _positionMenu, Quaternion.identity);
-        _towerMenu = menu.GetComponent<TowerMenu>();
-        _towerMenu.BasePosition = transform.position;
-        _isMenuActivated = true;
-        _isMenuActive = true;
+        GenerateMenu();
+    }
+
+    private void OnMouseEnter()
+    {
+        if (_tower != null)
+        {
+            return;
+        }
+
+        _sprite.enabled = true;
+    }
+
+    private void OnMouseExit()
+    {
+        if (_isMenuActive)
+        {
+            return;
+        }
+
+        _sprite.enabled = false;
     }
 
     private void FindMenuPosition()
     {
         int counter = 0;
         bool isFounded = false;
-
-        print("qq");
 
         foreach (var item in _triggers)
         {
@@ -53,22 +80,22 @@ public class BaseTower : MonoBehaviour
                 {
                     case LEFT:
                         {
-                            _positionMenu.x -= (_baseCollider.bounds.size.x / 2 + _baseCollider.bounds.size.x / 2);
+                            _positionMenu.x -= (_baseCollider.bounds.size.x);
                             return;
                         }
                     case UP:
                         {
-                            _positionMenu.y += (_baseCollider.bounds.size.y / 2 + _baseCollider.bounds.size.y / 2);
+                            _positionMenu.y += (_baseCollider.bounds.size.y);
                             return;
                         }
                     case RIGHT:
                         {
-                            _positionMenu.x += (_baseCollider.bounds.size.x / 2 + _baseCollider.bounds.size.x / 2);
+                            _positionMenu.x += (_baseCollider.bounds.size.x);
                             return;
                         }
                     case DOWN:
                         {
-                            _positionMenu.y -= (_baseCollider.bounds.size.y / 2 + _baseCollider.bounds.size.y / 2);
+                            _positionMenu.y -= (_baseCollider.bounds.size.y);
                             return;
                         }
                     default:
@@ -78,5 +105,32 @@ public class BaseTower : MonoBehaviour
 
             counter++;
         }
+    }
+
+    private void GenerateMenu()
+    {
+        GameObject menu = Instantiate(_menuPrefab, _positionMenu, Quaternion.identity);
+        _towerMenu = menu.GetComponent<TowerMenu>();
+        _towerMenu.BasePosition = transform.position;
+        _towerMenu.BaseTower = this;
+        _towerMenu.OnTowerBuilt += SetOffPlace;
+        _towerMenu.OnDisableMenu += ActivateMenu;
+        _isMenuActive = true;
+    }
+
+    private void SetOffPlace(Tower tower)
+    {
+        _isTowerPlaced = true;
+        _tower = tower;
+        _towerMenu.OnTowerBuilt -= SetOffPlace;
+        _towerMenu.OnDisableMenu -= ActivateMenu;
+        _sprite.enabled = false;
+        Destroy(_towerMenu.gameObject);
+    }
+
+    private void ActivateMenu()
+    {
+        _sprite.enabled = false;
+        _isMenuActive = false;
     }
 }
