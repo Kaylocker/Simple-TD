@@ -1,26 +1,22 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BaseTower : MonoBehaviour
 {
     [SerializeField] private GameObject _menuPrefab;
-    [SerializeField] private List<TowerSideTrigger> _triggers;
+    [SerializeField] private TowerMenu _upgradeMenuPrefab;
 
     private Tower _tower;
     private SpriteRenderer _sprite;
-    private BoxCollider2D _baseCollider;
     private TowerMenu _towerMenu;
     private Vector3 _positionMenu;
     private bool _isMenuActive, _isTowerPlaced;
-    private const int LEFT = 0, UP = 1, RIGHT = 2, DOWN = 3;
 
     public bool IsTowerPlaced { get => _isTowerPlaced; }
+    public bool Tower { get => _tower; }
 
     private void Start()
     {
         _positionMenu = transform.position;
-        _baseCollider = GetComponent<BoxCollider2D>();
         _sprite = GetComponent<SpriteRenderer>();
     }
 
@@ -41,7 +37,6 @@ public class BaseTower : MonoBehaviour
 
         _sprite.enabled = true;
 
-        FindMenuPosition();
         GenerateMenu();
     }
 
@@ -65,65 +60,28 @@ public class BaseTower : MonoBehaviour
         _sprite.enabled = false;
     }
 
-    private void FindMenuPosition()
-    {
-        int counter = 0;
-        bool isFounded = false;
-
-        foreach (var item in _triggers)
-        {
-            if (!item.IsCollided && !isFounded)
-            {
-                isFounded = true;
-
-                switch (counter)
-                {
-                    case LEFT:
-                        {
-                            _positionMenu.x -= (_baseCollider.bounds.size.x);
-                            return;
-                        }
-                    case UP:
-                        {
-                            _positionMenu.y += (_baseCollider.bounds.size.y);
-                            return;
-                        }
-                    case RIGHT:
-                        {
-                            _positionMenu.x += (_baseCollider.bounds.size.x);
-                            return;
-                        }
-                    case DOWN:
-                        {
-                            _positionMenu.y -= (_baseCollider.bounds.size.y);
-                            return;
-                        }
-                    default:
-                        break;
-                }
-            }
-
-            counter++;
-        }
-    }
-
     private void GenerateMenu()
     {
         GameObject menu = Instantiate(_menuPrefab, _positionMenu, Quaternion.identity);
         _towerMenu = menu.GetComponent<TowerMenu>();
         _towerMenu.BasePosition = transform.position;
         _towerMenu.BaseTower = this;
-        _towerMenu.OnTowerBuilt += SetOffPlace;
+        _towerMenu.SetInformationTowerPanelsCenterPosition();
+        _towerMenu.OnTowerBuilt += SetTowerOnBase;
         _towerMenu.OnDisableMenu += ActivateMenu;
         _isMenuActive = true;
     }
 
-    private void SetOffPlace(Tower tower)
+    private void SetTowerOnBase(Tower tower)
     {
         _isTowerPlaced = true;
         _tower = tower;
-        _towerMenu.OnTowerBuilt -= SetOffPlace;
+        tower.Base = this;
+        tower.UpgradeMenu = _upgradeMenuPrefab;
+
+        _towerMenu.OnTowerBuilt -= SetTowerOnBase;
         _towerMenu.OnDisableMenu -= ActivateMenu;
+
         _sprite.enabled = false;
         Destroy(_towerMenu.gameObject);
     }

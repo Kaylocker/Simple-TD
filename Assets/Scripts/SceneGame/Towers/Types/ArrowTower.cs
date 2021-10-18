@@ -1,16 +1,24 @@
-using System.Collections;
 using UnityEngine;
 
 public class ArrowTower : Tower
 {
-    [SerializeField] private GameObject _circle;
-    [SerializeField] private float _damage;
-    [SerializeField] private float _speed;
+    [SerializeField] private Projectile _projectilePrefab;
+    [SerializeField] private SpriteRenderer _circleRange;
 
     private void Awake()
     {
-        Range = _circle;
+        SetTowerType();
+        InstantiateRangeRadius(_circleRange);
+
+        _projectile = _projectilePrefab;
+
         StartCoroutine(FindEnemy());
     }
 
+    private void SetTowerType()
+    {
+        _towerLevel = Resources.Load<TowerLevelsData>($"Towers/ArrowTower");
+
+        SetCharacteristic();
+    }
 }

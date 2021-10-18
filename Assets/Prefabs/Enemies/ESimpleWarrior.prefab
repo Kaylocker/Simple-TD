@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3312625624240863108}
   - component: {fileID: 3312625624240863111}
   m_Layer: 0
-  m_Name: Enemy2
+  m_Name: ESimpleWarrior
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -97,6 +97,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acbc82967957bd8408e2b3785306cc65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _healthSystem:
+    ValueChanged:
+      m_PersistentCalls:
+        m_Calls: []
+  _speed: 1.5
+  _hitpoints: 40
 --- !u!50 &3312625624240863108
 Rigidbody2D:
   serializedVersion: 4
@@ -117,7 +123,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!61 &3312625624240863111
 BoxCollider2D:
   m_ObjectHideFlags: 0
