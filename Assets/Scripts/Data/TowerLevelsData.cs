@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "TowerLevel", menuName = "SimpleTD/TowerLevel")]
+[CreateAssetMenu(fileName = "TowerConfiguration", menuName = "SimpleTD/TowerConfiguration")]
 public class TowerLevelsData : ScriptableObject
 {
     public List<Level> Levels = new List<Level>();
@@ -10,8 +10,10 @@ public class TowerLevelsData : ScriptableObject
 [System.Serializable]
 public class Level
 {
-    [Range(1f, 1000f)]
-    public float Cost;
+    [Range(1, 1000)]
+    public int GoldCost;
+    [Range(1, 1000)]
+    public int WoodCost;
     [Range(1f, 100f)]
     public float DamageMin;
     [Range(1f, 100f)]

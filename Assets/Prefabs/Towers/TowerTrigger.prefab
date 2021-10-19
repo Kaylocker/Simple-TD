@@ -127,8 +127,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbfcda9e268c1dc49bb078a6bae2aa56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _menuPrefab: {fileID: 972650367845677899, guid: e21307252a2d4d84da650d2905b1538c, type: 3}
-  _upgradeMenuPrefab: {fileID: 972650367845677897, guid: 3f7137fd32548b746be95459734db0d5, type: 3}
+  _buyMenuPrefab: {fileID: 972650367845677899, guid: e21307252a2d4d84da650d2905b1538c, type: 3}
+  _upgradeMenuPrefab: {fileID: 972650367845677899, guid: 3f7137fd32548b746be95459734db0d5, type: 3}
 --- !u!61 &5451028000299172453
 BoxCollider2D:
   m_ObjectHideFlags: 0

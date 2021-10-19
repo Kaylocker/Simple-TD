@@ -3,77 +3,30 @@ using UnityEngine;
 
 public class Tower : MonoBehaviour
 {
-    protected Projectile _projectile;
-    protected TowerLevelsData _towerLevel;
+    protected ResourcesManager _resourcesManager;
 
-    protected GameObject _activeRadius, _activeProjectile, _activeUpgradeMenu;
+    protected Projectile _projectile;
+    protected TowerLevelsData _towerData;
+
+    protected GameObject _activeRadius, _activeProjectile;
 
     protected SpriteRenderer _activeRadiusSprite;
-    protected TowerMenu _upgradeMenuPrefab;
-    protected TowerMenu _upgradeMenu;
 
     protected WaitForSeconds _delayFoundingEnemies = new WaitForSeconds(T_DELAY_FOUNDING_ENEMIES);
     protected WaitForSeconds _delayReload;
 
-    protected BaseTower _base;
     protected Enemy _target;
     protected Vector3 _radiusTower;
 
     protected const float T_DELAY_FOUNDING_ENEMIES = 0.3f;
-    protected float _timeDelayReload, _radius;
-    protected float _damageMin, _damageMax;
+    protected float _timeDelayReload, _radius, _damageMin, _damageMax;
 
     protected int _level = 0;
     protected bool _isEnemyFinded, _isSelected;
 
-    public BaseTower Base
+    public SpriteRenderer ActiveRadius
     {
-        get => _base;
-
-        set
-        {
-            if (_base == null)
-            {
-                _base = value;
-            }
-        }
-    }
-
-    public TowerMenu UpgradeMenu
-    {
-        get => _upgradeMenuPrefab;
-
-        set
-        {
-            if (_upgradeMenuPrefab == null)
-            {
-                _upgradeMenuPrefab = value;
-            }
-        }
-    }
-
-    private void OnMouseDown()
-    {
-        if (_activeUpgradeMenu != null && !_activeUpgradeMenu.gameObject.activeInHierarchy)
-        {
-            _activeUpgradeMenu.gameObject.SetActive(true);
-            _isSelected = true;
-            _activeRadius.SetActive(true);
-            return;
-        }
-
-        if (_isSelected)
-        {
-            return;
-        }
-
-        ActivateMenu();
-    }
-
-    private void OnDisable()
-    {
-        _upgradeMenu.OnDisableMenu -= DisableRadiusTower;
-        _upgradeMenu.OnTowerUpgraded -= UpgradeLevel;
+        get => _activeRadiusSprite;
     }
 
     protected IEnumerator FindEnemy()
@@ -137,11 +90,11 @@ public class Tower : MonoBehaviour
         }
     }
 
-    private void UpgradeLevel()
+    public void UpgradeLevel()
     {
-        if (_level >= _towerLevel.Levels.Count - 1)
+        if (_level >= _towerData.Levels.Count - 1)
         {
-            _level = _towerLevel.Levels.Count - 1;
+            _level = _towerData.Levels.Count - 1;
 
             return;
         }
@@ -150,6 +103,7 @@ public class Tower : MonoBehaviour
 
         SetCharacteristic();
     }
+
 
     protected void InstantiateRangeRadius(SpriteRenderer circleRange)
     {
@@ -161,49 +115,32 @@ public class Tower : MonoBehaviour
         _radius = _activeRadiusSprite.bounds.size.x / 2;
     }
 
+    protected void SetTowerType(string path)
+    {
+        _towerData = GetCurrentTowerData(path);
+
+        SetCharacteristic();
+    }
+
     protected void SetCharacteristic()
     {
-        _damageMin = _towerLevel.Levels[_level].DamageMin;
-        _damageMax = _towerLevel.Levels[_level].DamageMax;
-        _timeDelayReload = _towerLevel.Levels[_level].ReloadTime;
+        _damageMin = _towerData.Levels[_level].DamageMin;
+        _damageMax = _towerData.Levels[_level].DamageMax;
+        _timeDelayReload = _towerData.Levels[_level].ReloadTime;
         _delayReload = new WaitForSeconds(_timeDelayReload);
 
-        float sizeRadius = _towerLevel.Levels[_level].RadiusCoefficient;
+        float sizeRadius = _towerData.Levels[_level].RadiusCoefficient;
         _radiusTower = new Vector3(sizeRadius, sizeRadius, 0);
 
-        if(_level>0)
+        if (_level > 0)
         {
             _activeRadiusSprite.transform.localScale += _radiusTower;
             _radius = _activeRadiusSprite.bounds.size.x / 2;
         }
     }
 
-    protected void SetMenuSettings()
+    public TowerLevelsData GetCurrentTowerData(string path)
     {
-        if (_upgradeMenu == null)
-        {
-            _upgradeMenu = _activeUpgradeMenu.GetComponent<TowerMenu>();
-            _upgradeMenu.Tower = this;
-
-            _upgradeMenu.OnDisableMenu += DisableRadiusTower;
-            _upgradeMenu.OnTowerUpgraded += UpgradeLevel;
-        }
-    }
-
-    private void ActivateMenu()
-    {
-        _activeUpgradeMenu = Instantiate(_upgradeMenuPrefab.gameObject, transform.position, Quaternion.identity);
-
-        SetMenuSettings();
-
-        _upgradeMenu.SetInformationTowerPanelsCenterPosition(true);
-        _isSelected = true;
-        _activeRadius.SetActive(true);
-    }
-
-    protected void DisableRadiusTower()
-    {
-        _isSelected = false;
-        _activeRadius.SetActive(false);
+        return _towerData = Resources.Load<TowerLevelsData>(path);
     }
 }

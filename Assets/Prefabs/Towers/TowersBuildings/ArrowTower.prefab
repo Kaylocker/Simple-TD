@@ -10,8 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2226164518259385003}
   - component: {fileID: 85032796427278830}
-  - component: {fileID: -1274709371094082204}
-  - component: {fileID: -1626130305616887223}
+  - component: {fileID: -4381048116495076672}
   m_Layer: 0
   m_Name: ArrowTower
   m_TagString: Untagged
@@ -84,33 +83,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &-1274709371094082204
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3139025437524822450}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.006358266, y: 0.16213638}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5113036, y: 0.28268635}
-    oldSize: {x: 0.5625, y: 0.74609375}
-    newSize: {x: 0.5625, y: 0.74609375}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.5625, y: 0.74609375}
-  m_EdgeRadius: 0
---- !u!114 &-1626130305616887223
+--- !u!114 &-4381048116495076672
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -122,5 +95,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06f79a548bb111343ab97094ff08be9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnBuild: {fileID: 11400000, guid: 8e1443f2902b3444e9f640e9c43005ce, type: 2}
   _projectilePrefab: {fileID: 8708390684543629689, guid: 3e36ddf670d9fc54bb38a7f9868f582f, type: 3}
   _circleRange: {fileID: 884257780424299143, guid: c65b6d242719a5346a04a9e04cfa741a, type: 3}

@@ -1,11 +1,11 @@
 using UnityEngine;
 
-public class ArrowTower : Tower, ITowerType
+public class MageTower : Tower, ITowerType
 {
     [SerializeField] private Projectile _projectilePrefab;
     [SerializeField] private SpriteRenderer _circleRange;
 
-    public string DataPath { get => "Towers/Arrow"; }
+    public string DataPath { get => "Towers/Mage"; }
 
     private void Awake()
     {

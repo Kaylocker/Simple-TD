@@ -2,12 +2,14 @@ using UnityEngine;
 
 public class BaseTower : MonoBehaviour
 {
-    [SerializeField] private GameObject _menuPrefab;
-    [SerializeField] private TowerMenu _upgradeMenuPrefab;
+    [SerializeField] private GameObject _buyMenuPrefab;
+    [SerializeField] private GameObject _upgradeMenuPrefab;
 
+    private GameObject _menu;
+    private TowerMenu _activeMenu;
     private Tower _tower;
-    private SpriteRenderer _sprite;
-    private TowerMenu _towerMenu;
+    private SpriteRenderer _baseSprite;
+
     private Vector3 _positionMenu;
     private bool _isMenuActive, _isTowerPlaced;
 
@@ -17,25 +19,31 @@ public class BaseTower : MonoBehaviour
     private void Start()
     {
         _positionMenu = transform.position;
-        _sprite = GetComponent<SpriteRenderer>();
+        _baseSprite = GetComponent<SpriteRenderer>();
     }
 
     private void OnMouseDown()
     {
-        if (_towerMenu != null && !_towerMenu.gameObject.activeInHierarchy)
+        if (_activeMenu != null && !_activeMenu.gameObject.activeInHierarchy)
         {
-            _towerMenu.gameObject.SetActive(true);
+            _activeMenu.gameObject.SetActive(true);
             _isMenuActive = true;
-            return;
 
+            if (_isTowerPlaced)
+            {
+                _tower.ActiveRadius.gameObject.SetActive(true);
+            }
+            else
+            {
+                _baseSprite.enabled = true;
+            }
+            return;
         }
 
-        if (_isMenuActive || _isTowerPlaced)
+        if (_isMenuActive)
         {
             return;
         }
-
-        _sprite.enabled = true;
 
         GenerateMenu();
     }
@@ -47,7 +55,7 @@ public class BaseTower : MonoBehaviour
             return;
         }
 
-        _sprite.enabled = true;
+        _baseSprite.enabled = true;
     }
 
     private void OnMouseExit()
@@ -57,38 +65,60 @@ public class BaseTower : MonoBehaviour
             return;
         }
 
-        _sprite.enabled = false;
+        _baseSprite.enabled = false;
     }
 
     private void GenerateMenu()
     {
-        GameObject menu = Instantiate(_menuPrefab, _positionMenu, Quaternion.identity);
-        _towerMenu = menu.GetComponent<TowerMenu>();
-        _towerMenu.BasePosition = transform.position;
-        _towerMenu.BaseTower = this;
-        _towerMenu.SetInformationTowerPanelsCenterPosition();
-        _towerMenu.OnTowerBuilt += SetTowerOnBase;
-        _towerMenu.OnDisableMenu += ActivateMenu;
+        if (_isTowerPlaced)
+        {
+            _menu = Instantiate(_upgradeMenuPrefab, _positionMenu, Quaternion.identity);
+            _activeMenu = _menu.GetComponent<TowerMenu>();
+
+            _activeMenu.OnDisableMenu += DisableRadiusTower;
+            _activeMenu.OnTowerUpgraded += _tower.UpgradeLevel;
+
+            _activeMenu.SetInformationTowerPanelsCenterPosition(true);
+            _tower.ActiveRadius.gameObject.SetActive(true);
+        }
+        else
+        {
+            _menu = Instantiate(_buyMenuPrefab, _positionMenu, Quaternion.identity);
+            _activeMenu = _menu.GetComponent<TowerMenu>();
+
+            _activeMenu.OnTowerBuilt += BuildTowerOnBase;
+            _activeMenu.OnDisableMenu += DisableMenu;
+
+            _activeMenu.SetInformationTowerPanelsCenterPosition();
+        }
+
+
+        _activeMenu.BasePosition = transform.position;
+
         _isMenuActive = true;
     }
 
-    private void SetTowerOnBase(Tower tower)
+    private void BuildTowerOnBase(Tower tower)
     {
+        DisableMenu();
+
         _isTowerPlaced = true;
         _tower = tower;
-        tower.Base = this;
-        tower.UpgradeMenu = _upgradeMenuPrefab;
 
-        _towerMenu.OnTowerBuilt -= SetTowerOnBase;
-        _towerMenu.OnDisableMenu -= ActivateMenu;
+        _activeMenu.OnTowerBuilt -= BuildTowerOnBase;
+        _baseSprite.enabled = false;
 
-        _sprite.enabled = false;
-        Destroy(_towerMenu.gameObject);
+        Destroy(_activeMenu.gameObject);
     }
 
-    private void ActivateMenu()
+    private void DisableMenu()
     {
-        _sprite.enabled = false;
+        _baseSprite.enabled = false;
         _isMenuActive = false;
+    }
+
+    protected void DisableRadiusTower()
+    {
+        _tower.ActiveRadius.gameObject.SetActive(false);
     }
 }

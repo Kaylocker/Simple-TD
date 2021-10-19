@@ -91,7 +91,7 @@ GameObject:
   - component: {fileID: 972650367845677896}
   - component: {fileID: 972650367845677897}
   m_Layer: 0
-  m_Name: Menu
+  m_Name: BuyMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -386,7 +386,7 @@ MonoBehaviour:
         m_MethodName: Build
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 530655189981834248, guid: 71832c2d71faac145aed6b0473b92cdd, type: 3}
+          m_ObjectArgument: {fileID: 5244491263906101543, guid: bec9f4f991cce26458bf6a0ce46c514e, type: 3}
           m_ObjectArgumentAssemblyTypeName: Tower, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -783,7 +783,7 @@ MonoBehaviour:
         m_MethodName: Build
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 5451942361325112032, guid: bec9f4f991cce26458bf6a0ce46c514e, type: 3}
+          m_ObjectArgument: {fileID: 1316902346196771684, guid: 71832c2d71faac145aed6b0473b92cdd, type: 3}
           m_ObjectArgumentAssemblyTypeName: Tower, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -1101,7 +1101,7 @@ MonoBehaviour:
         m_MethodName: Build
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: -1626130305616887223, guid: 151c3db6706efa44fbfcd0beee94facd, type: 3}
+          m_ObjectArgument: {fileID: -4381048116495076672, guid: 151c3db6706efa44fbfcd0beee94facd, type: 3}
           m_ObjectArgumentAssemblyTypeName: Tower, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0

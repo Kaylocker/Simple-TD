@@ -11,9 +11,9 @@ public class TowerMenu : MonoBehaviour
 
     [SerializeField] TowerMenuButton[] _buttons;
 
+    private TowerLevelsData _towerLevelsData;
+    private ResourcesManager _resourcesManager;
     private SpriteRenderer _sprite;
-    private BaseTower _baseTower = null;
-    private Tower _tower;
 
     private Vector3 _basePosition;
 
@@ -23,30 +23,6 @@ public class TowerMenu : MonoBehaviour
         {
             _basePosition = value;
 
-        }
-    }
-
-    public BaseTower BaseTower
-    {
-        set
-        {
-            if (_baseTower == null)
-            {
-                _baseTower = value;
-            }
-        }
-    }
-
-    public Tower Tower
-    {
-        get => _tower;
-
-        set
-        {
-            if (_tower == null)
-            {
-                _tower = value;
-            }
         }
     }
 
@@ -70,14 +46,14 @@ public class TowerMenu : MonoBehaviour
         {
             yOffset = -_sprite.bounds.size.y / 2 - buttonOffset;
         }
-        else 
+        else
         {
             yOffset = _sprite.bounds.size.y / 2 + buttonOffset;
         }
 
         foreach (var item in _buttons)
         {
-            if(item != null)
+            if (item != null)
             {
                 item.SetMenuPosition(new Vector3(transform.position.x, (transform.position.y + yOffset), transform.position.z), _basePosition);
             }
@@ -86,14 +62,37 @@ public class TowerMenu : MonoBehaviour
 
     public void Build(Tower tower)
     {
-        if (_baseTower.IsTowerPlaced || _baseTower == null)
+        bool isEnoughResources = CheckRequiredAmountResources(tower);
+
+        if (!isEnoughResources)
         {
             return;
         }
 
         GameObject gmTower = Instantiate(tower.gameObject, _basePosition, Quaternion.identity);
         Tower activeTower = gmTower.GetComponent<Tower>();
+
+
+        _resourcesManager.ChangeGold(-_towerLevelsData.Levels[0].GoldCost);
+        _resourcesManager.ChangeWood(-_towerLevelsData.Levels[0].WoodCost);
+
         OnTowerBuilt?.Invoke(activeTower);
+    }
+
+    private bool CheckRequiredAmountResources(Tower tower)
+    {
+        tower.TryGetComponent(out ITowerType currentType);
+
+        _towerLevelsData = currentType.GetCurrentTowerData(currentType.DataPath);
+
+         _resourcesManager = FindObjectOfType<ResourcesManager>();
+
+        if (_resourcesManager.Gold > _towerLevelsData.Levels[0].GoldCost && _resourcesManager.Wood > _towerLevelsData.Levels[0].WoodCost)
+        {
+            return true;
+        }
+
+        return false;
     }
 
     public void DisableMenu()
