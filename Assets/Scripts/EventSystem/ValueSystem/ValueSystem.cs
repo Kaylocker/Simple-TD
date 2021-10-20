@@ -46,6 +46,5 @@ public class ValueSystem
     }
 
     [System.Serializable]
-
     public class ValueEvent : UnityEvent<float> { }
 }

@@ -6,20 +6,20 @@ public class ResourcesUI : MonoBehaviour
     [SerializeField] TextMeshProUGUI _goldText;
     [SerializeField] TextMeshProUGUI _woodText;
 
-    private ResourcesManager _resourcesManager;
+    private ResourcesManager _resources;
 
     private void OnEnable()
     {
-        if (_resourcesManager == null)
+        if (_resources == null)
         {
-            _resourcesManager = FindObjectOfType<ResourcesManager>();
-            _resourcesManager.AddListeners(ChangeGoldTotal, ChangeWoodTotal);
+            _resources = FindObjectOfType<ResourcesManager>();
+            _resources.AddListeners(ChangeGoldTotal, ChangeWoodTotal);
         }
     }
 
     private void OnDisable()
     {
-        _resourcesManager.RemoveListeners(ChangeGoldTotal, ChangeWoodTotal);
+        _resources.RemoveListeners(ChangeGoldTotal, ChangeWoodTotal);
     }
 
     public void ChangeGoldTotal(int gold)
@@ -31,6 +31,4 @@ public class ResourcesUI : MonoBehaviour
     {
         _woodText.text = wood.ToString();
     }
-
-
 }

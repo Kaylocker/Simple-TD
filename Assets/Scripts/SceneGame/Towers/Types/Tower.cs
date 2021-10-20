@@ -3,39 +3,35 @@ using UnityEngine;
 
 public class Tower : MonoBehaviour
 {
-    protected ResourcesManager _resourcesManager;
-
-    protected Projectile _projectile;
-    protected TowerLevelsData _towerData;
-
-    protected GameObject _activeRadius, _activeProjectile;
-
-    protected SpriteRenderer _activeRadiusSprite;
-
-    protected WaitForSeconds _delayFoundingEnemies = new WaitForSeconds(T_DELAY_FOUNDING_ENEMIES);
-    protected WaitForSeconds _delayReload;
-
     protected Enemy _target;
-    protected Vector3 _radiusTower;
+    protected ResourcesManager _resources;
+    protected Projectile _projectile;
+    protected TowerLevelsData _data;
+    protected SpriteRenderer _activeRadius;
 
-    protected const float T_DELAY_FOUNDING_ENEMIES = 0.3f;
-    protected float _timeDelayReload, _radius, _damageMin, _damageMax;
+    protected WaitForSeconds _delaySearchingEnemies = new WaitForSeconds(DELAY_SEARCHING_ENEMIES);
+    protected WaitForSeconds _delayReload;
+  
+    protected Vector3 _firingCircleZone;
 
+    protected const float DELAY_SEARCHING_ENEMIES = 0.3f;
+
+    protected float _timeDelayReload, _damageMin, _damageMax, _radiusFiring;
     protected int _level = 0;
-    protected bool _isEnemyFinded, _isSelected;
+    protected bool _isEnemyFinded;
 
     public SpriteRenderer ActiveRadius
     {
-        get => _activeRadiusSprite;
+        get => _activeRadius;
     }
 
     protected IEnumerator FindEnemy()
     {
-        yield return _delayFoundingEnemies;
+        yield return _delaySearchingEnemies;
 
         while (_target == null)
         {
-            Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, _radius);
+            Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, _radiusFiring);
 
             foreach (Collider2D collider in colliders)
             {
@@ -50,16 +46,18 @@ public class Tower : MonoBehaviour
                 }
             }
 
-            yield return _delayFoundingEnemies;
+            yield return _delaySearchingEnemies;
         }
     }
 
     protected IEnumerator Shooting()
     {
+        GameObject projectile;
+
         while (_target != null)
         {
-            _activeProjectile = Instantiate(_projectile.gameObject, transform.position, Quaternion.identity);
-            Projectile activeProjectileComponent = _activeProjectile.GetComponent<Projectile>();
+            projectile = Instantiate(_projectile.gameObject, transform.position, Quaternion.identity);
+            Projectile activeProjectileComponent = projectile.GetComponent<Projectile>();
             activeProjectileComponent.SetEnemy(_target);
             activeProjectileComponent.SetDamageRange(_damageMin, _damageMax);
 
@@ -81,7 +79,7 @@ public class Tower : MonoBehaviour
 
         Vector3 distance = _target.transform.position - transform.position;
 
-        if (distance.magnitude > _radius)
+        if (distance.magnitude > _radiusFiring)
         {
             _target = null;
             _isEnemyFinded = false;
@@ -92,9 +90,9 @@ public class Tower : MonoBehaviour
 
     public void UpgradeLevel()
     {
-        if (_level >= _towerData.Levels.Count - 1)
+        if (_level >= _data.Levels.Count - 1)
         {
-            _level = _towerData.Levels.Count - 1;
+            _level = _data.Levels.Count - 1;
 
             return;
         }
@@ -104,43 +102,46 @@ public class Tower : MonoBehaviour
         SetCharacteristic();
     }
 
-
     protected void InstantiateRangeRadius(SpriteRenderer circleRange)
     {
-        _activeRadius = Instantiate(circleRange.gameObject, transform.position, Quaternion.identity);
-        _activeRadius.SetActive(false);
-        _activeRadiusSprite = _activeRadius.GetComponent<SpriteRenderer>();
-        _activeRadiusSprite.transform.localScale += _radiusTower;
+        GameObject radius = Instantiate(circleRange.gameObject, transform.position, Quaternion.identity);
+        radius.SetActive(false);
+        _activeRadius = radius.GetComponent<SpriteRenderer>();
 
-        _radius = _activeRadiusSprite.bounds.size.x / 2;
+        SetRadiusSize();
+    }
+
+    private void SetRadiusSize()
+    {
+        _activeRadius.transform.localScale += _firingCircleZone;
+        _radiusFiring = _activeRadius.bounds.size.x / 2;
     }
 
     protected void SetTowerType(string path)
     {
-        _towerData = GetCurrentTowerData(path);
+        _data = GetCurrentTowerData(path);
 
         SetCharacteristic();
     }
 
     protected void SetCharacteristic()
     {
-        _damageMin = _towerData.Levels[_level].DamageMin;
-        _damageMax = _towerData.Levels[_level].DamageMax;
-        _timeDelayReload = _towerData.Levels[_level].ReloadTime;
+        _damageMin = _data.Levels[_level].DamageMin;
+        _damageMax = _data.Levels[_level].DamageMax;
+        _timeDelayReload = _data.Levels[_level].ReloadTime;
         _delayReload = new WaitForSeconds(_timeDelayReload);
 
-        float sizeRadius = _towerData.Levels[_level].RadiusCoefficient;
-        _radiusTower = new Vector3(sizeRadius, sizeRadius, 0);
+        float sizeRadius = _data.Levels[_level].RadiusFiring;
+        _firingCircleZone = new Vector3(sizeRadius, sizeRadius, 0);
 
         if (_level > 0)
         {
-            _activeRadiusSprite.transform.localScale += _radiusTower;
-            _radius = _activeRadiusSprite.bounds.size.x / 2;
+            SetRadiusSize();
         }
     }
 
     public TowerLevelsData GetCurrentTowerData(string path)
     {
-        return _towerData = Resources.Load<TowerLevelsData>(path);
+        return _data = Resources.Load<TowerLevelsData>(path);
     }
 }

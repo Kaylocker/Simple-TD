@@ -15,11 +15,12 @@ public class Level
     [Range(1, 1000)]
     public int WoodCost;
     [Range(1f, 100f)]
+    [Space]
     public float DamageMin;
     [Range(1f, 100f)]
     public float DamageMax;
     [Range(0.1f, 2.0f)]
     public float ReloadTime;
     [Range(0.1f, 10.0f)]
-    public float RadiusCoefficient;
+    public float RadiusFiring;
 }

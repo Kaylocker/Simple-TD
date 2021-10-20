@@ -11,9 +11,10 @@ public class LevelData : ScriptableObject
 public class Wave
 {
     [Range(1f, 100f)]
-    public float StartGold;
+    public float StartGoldAmount;
     [Range(1f, 100f)]
-    public float StartWood;
+    public float StartWoodAmount;
+    [Space]
     [Range(1f, 100f)]
     public int CountEnemies;
     [Range(1f,100f)]

@@ -6,11 +6,11 @@ public class ResourcesManager : MonoBehaviour
     [SerializeField] private EventInt OnGoldChanged;
     [SerializeField] private EventInt OnWoodChanged;
 
-    private int _gold, _wood;
+    private int _goldTotal, woodTotal;
     private const int GOLD_MAX = 99999, WOOD_MAX = 99999;
 
-    public int Gold { get => _gold; }
-    public int Wood { get => _wood; }
+    public int GoldTotal { get => _goldTotal; }
+    public int WoodTotal { get => woodTotal; }
 
     private void Awake()
     {
@@ -20,34 +20,34 @@ public class ResourcesManager : MonoBehaviour
     
     public void ChangeGold(int value)
     {
-        _gold += value;
+        _goldTotal += value;
 
-        if (_gold < 0)
+        if (_goldTotal < 0)
         {
-            _gold = 0;
+            _goldTotal = 0;
         }
-        else if (_gold > GOLD_MAX)
+        else if (_goldTotal > GOLD_MAX)
         {
-            _gold = GOLD_MAX;
+            _goldTotal = GOLD_MAX;
         }
 
-        OnGoldChanged?.Invoke(_gold);
+        OnGoldChanged?.Invoke(_goldTotal);
     }
 
     public void ChangeWood(int value)
     {
-        _wood += value;
+        woodTotal += value;
 
-        if (_wood < 0)
+        if (woodTotal < 0)
         {
-            _wood = 0;
+            woodTotal = 0;
         }
-        else if (_wood > WOOD_MAX)
+        else if (woodTotal > WOOD_MAX)
         {
-            _wood = WOOD_MAX;
+            woodTotal = WOOD_MAX;
         }
 
-        OnWoodChanged?.Invoke(_wood);
+        OnWoodChanged?.Invoke(woodTotal);
     }
 
     public void AddListeners(UnityAction<int> GoldChange, UnityAction<int> WoodChange)

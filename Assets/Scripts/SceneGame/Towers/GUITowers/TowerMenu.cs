@@ -37,8 +37,8 @@ public class TowerMenu : MonoBehaviour
 
         if (isNeedButtonOffset)
         {
-            Image image = _buttons[0].GetComponent<Image>();
-
+            int firstButton = 0;
+            Image image = _buttons[firstButton].GetComponent<Image>();
             buttonOffset = image.sprite.bounds.size.y;
         }
 
@@ -84,10 +84,9 @@ public class TowerMenu : MonoBehaviour
         tower.TryGetComponent(out ITowerType currentType);
 
         _towerLevelsData = currentType.GetCurrentTowerData(currentType.DataPath);
-
          _resourcesManager = FindObjectOfType<ResourcesManager>();
 
-        if (_resourcesManager.Gold > _towerLevelsData.Levels[0].GoldCost && _resourcesManager.Wood > _towerLevelsData.Levels[0].WoodCost)
+        if (_resourcesManager.GoldTotal > _towerLevelsData.Levels[0].GoldCost && _resourcesManager.WoodTotal > _towerLevelsData.Levels[0].WoodCost)
         {
             return true;
         }
@@ -103,6 +102,7 @@ public class TowerMenu : MonoBehaviour
 
     public void Upgrade()
     {
+
         DisableMenu();
 
         OnTowerUpgraded?.Invoke();

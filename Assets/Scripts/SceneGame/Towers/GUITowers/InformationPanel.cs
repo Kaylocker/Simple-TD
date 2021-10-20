@@ -10,6 +10,4 @@ public class InformationPanel : MonoBehaviour
     [SerializeField] TextMeshProUGUI _goldCost;
     [Space]
     [SerializeField] TextMeshProUGUI _woodCost;
-
-
 }

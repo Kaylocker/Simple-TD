@@ -6,14 +6,14 @@ public class Projectile : MonoBehaviour
     private const float _speed = 5f;
     private float _damageMin, _damageMax;
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (_enemy == null)
         {
             return;
         }
 
-        MovementLogic();
+        Motion();
     }
 
     private void OnDisable()
@@ -38,12 +38,12 @@ public class Projectile : MonoBehaviour
         _damageMax = damageMax;
     }
 
-    public void MovementLogic()
+    public void Motion()
     {
         Vector3 direction = _enemy.transform.position - transform.position;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-        transform.position = Vector3.MoveTowards(transform.position, _enemy.transform.position, _speed * Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, _enemy.transform.position, _speed * Time.fixedDeltaTime);
 
         if (transform.position == _enemy.transform.position)
         {

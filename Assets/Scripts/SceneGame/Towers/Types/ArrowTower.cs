@@ -13,8 +13,7 @@ public class ArrowTower : Tower, ITowerType
         InstantiateRangeRadius(_circleRange);
 
         _projectile = _projectilePrefab;
-
-        _resourcesManager = FindObjectOfType<ResourcesManager>();
+        _resources = FindObjectOfType<ResourcesManager>();
 
         StartCoroutine(FindEnemy());
     }

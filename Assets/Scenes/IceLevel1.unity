@@ -4386,7 +4386,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1722663155}
-  - component: {fileID: 1722663154}
+  - component: {fileID: 1722663153}
   m_Layer: 0
   m_Name: ResourcesManager
   m_TagString: Untagged
@@ -4394,7 +4394,7 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1722663154
+--- !u!114 &1722663153
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4403,7 +4403,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1722663152}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6adf2006251d9cc4599a278c632d4627, type: 3}
+  m_Script: {fileID: 11500000, guid: a2fadddfaf37fef44ab24d8a7e5a4ca0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   OnGoldChanged:

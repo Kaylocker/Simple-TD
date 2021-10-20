@@ -3,7 +3,7 @@
 [System.Serializable]
 public class ValueBar : MonoBehaviour
 {
-    [SerializeField] Transform _lineBar;
+    [SerializeField] private Transform _lineBar;
 
     public void SetValue(float value)
     {

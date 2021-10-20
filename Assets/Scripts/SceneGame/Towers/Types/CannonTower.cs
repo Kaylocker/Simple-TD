@@ -14,7 +14,7 @@ public class CannonTower : Tower, ITowerType
 
         _projectile = _projectilePrefab;
 
-        _resourcesManager = FindObjectOfType<ResourcesManager>();
+        _resources = FindObjectOfType<ResourcesManager>();
 
         StartCoroutine(FindEnemy());
     }

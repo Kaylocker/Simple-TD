@@ -9,7 +9,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private ValueSystem _healthSystem = new ValueSystem();
 
     [SerializeField] private float _speed;
-    [SerializeField] private float _hitpoints;
+    [SerializeField] private float _health;
 
     private Waypoints _waypoints = null;
 
@@ -17,10 +17,10 @@ public class Enemy : MonoBehaviour
 
     private void Start()
     {
-        _healthSystem.Setup(_hitpoints);
+        _healthSystem.Setup(_health);
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (_waypoints == null)
         {
@@ -32,7 +32,7 @@ public class Enemy : MonoBehaviour
 
     private void MovementLogic()
     {
-        transform.position = Vector3.MoveTowards(transform.position, _waypoints[_indexOfWaypoints].position, _speed * Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, _waypoints[_indexOfWaypoints].position, _speed * Time.fixedDeltaTime);
 
         if(transform.position == _waypoints[_indexOfWaypoints].position)
         {
@@ -43,19 +43,18 @@ public class Enemy : MonoBehaviour
 
             _indexOfWaypoints++;
         }
-
     }
 
     public void TakeDamage(float damage)
     {
         OnTakeDamage?.Invoke();
 
-        _hitpoints -= damage;
+        _health -= damage;
         _healthSystem.RemoveValue(damage);
 
-        if (_hitpoints < 0)
+        if (_health < 0)
         {
-            _hitpoints = 0;
+            _health = 0;
             OnKilled?.Invoke();
             Destroy(gameObject);
         }
