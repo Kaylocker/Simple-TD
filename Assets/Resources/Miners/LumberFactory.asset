@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82c461a9c2b8b9c4f87cb7fef4bffef8, type: 3}
+  m_Name: LumberFactory
+  m_EditorClassIdentifier: 
+  Levels:
+  - GoldCost: 16
+    WoodCost: 2
+    GoldPerTime: 1
+    WoodPerTime: 2
+    DamageMin: 0
+    DamageMax: 0
+    ReloadTime: 1
+    RadiusFiring: 0
+  - GoldCost: 32
+    WoodCost: 4
+    GoldPerTime: 1
+    WoodPerTime: 4
+    DamageMin: 0
+    DamageMax: 0
+    ReloadTime: 0.9
+    RadiusFiring: 0

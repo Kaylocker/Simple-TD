@@ -1,7 +1,7 @@
 using UnityEngine;
 using System;
 
-public class Enemy : MonoBehaviour
+public class Enemy : MonoBehaviour, IEnemy
 {
     public event Action OnTakeDamage;
     public event Action OnKilled;
@@ -30,7 +30,7 @@ public class Enemy : MonoBehaviour
         MovementLogic();
     }
 
-    private void MovementLogic()
+    public void MovementLogic()
     {
         transform.position = Vector3.MoveTowards(transform.position, _waypoints[_indexOfWaypoints].position, _speed * Time.fixedDeltaTime);
 

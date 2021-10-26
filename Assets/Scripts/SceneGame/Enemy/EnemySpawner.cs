@@ -23,10 +23,11 @@ public class EnemySpawner : MonoBehaviour
     public IEnumerator GenerateWave()
     {
         WaitForSeconds delayBetweenSpawnEnemies = new WaitForSeconds(DELAY_BETWEEN_ENEMIES_SPAWNING);
+        int firstWaypoint = 0;
 
         for (int j = 0; j < _levelData.Waves[_indexWave].CountEnemies - 1; j++)
         {
-            GameObject enemy = Instantiate(_levelData.Waves[_indexWave].EnemyPrefabs, transform);
+            GameObject enemy = Instantiate(_levelData.Waves[_indexWave].EnemyPrefabs, _waypoints[firstWaypoint].transform);
             Enemy _enemyComponent = enemy.GetComponent<Enemy>();
             _enemyComponent.SetWaypoints(_waypoints);
 

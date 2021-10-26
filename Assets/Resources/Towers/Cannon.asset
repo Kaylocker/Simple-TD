@@ -13,33 +13,43 @@ MonoBehaviour:
   m_Name: Cannon
   m_EditorClassIdentifier: 
   Levels:
-  - GoldCost: 700
-    WoodCost: 300
-    DamageMin: 28
-    DamageMax: 41
-    ReloadTime: 2
-    RadiusCoefficient: 1.6
-  - GoldCost: 600
-    WoodCost: 350
+  - GoldCost: 10
+    WoodCost: 4
+    GoldPerTime: 0
+    WoodPerTime: 0
+    DamageMin: 15
+    DamageMax: 35
+    ReloadTime: 4.25
+    RadiusFiring: 3.75
+  - GoldCost: 20
+    WoodCost: 8
+    GoldPerTime: 0
+    WoodPerTime: 0
+    DamageMin: 29
+    DamageMax: 42
+    ReloadTime: 4.15
+    RadiusFiring: 3.9
+  - GoldCost: 40
+    WoodCost: 16
+    GoldPerTime: 0
+    WoodPerTime: 0
     DamageMin: 35
-    DamageMax: 51
-    ReloadTime: 1.95
-    RadiusCoefficient: 1.7
-  - GoldCost: 750
-    WoodCost: 450
-    DamageMin: 54
-    DamageMax: 72
-    ReloadTime: 1.9
-    RadiusCoefficient: 1.8
-  - GoldCost: 0
-    WoodCost: 0
-    DamageMin: 0
-    DamageMax: 0
-    ReloadTime: 0
-    RadiusCoefficient: 0
-  - GoldCost: 0
-    WoodCost: 0
-    DamageMin: 0
-    DamageMax: 0
-    ReloadTime: 0
-    RadiusCoefficient: 0
+    DamageMax: 59
+    ReloadTime: 2.05
+    RadiusFiring: 4
+  - GoldCost: 80
+    WoodCost: 32
+    GoldPerTime: 0
+    WoodPerTime: 0
+    DamageMin: 44
+    DamageMax: 66
+    ReloadTime: 3.95
+    RadiusFiring: 4.1
+  - GoldCost: 160
+    WoodCost: 64
+    GoldPerTime: 0
+    WoodPerTime: 0
+    DamageMin: 50
+    DamageMax: 81
+    ReloadTime: 3.9
+    RadiusFiring: 4.2
