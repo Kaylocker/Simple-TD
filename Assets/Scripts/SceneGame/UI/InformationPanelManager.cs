@@ -4,6 +4,7 @@ public class InformationPanelManager : MonoBehaviour
 {
     protected Character [] _characters;
     protected ICharacterData _interfaceCharacterData;
+    protected int _level;
 
     protected void Start()
     {
@@ -14,7 +15,6 @@ public class InformationPanelManager : MonoBehaviour
             FindSelectedCharacter();
         }
     }
-
 
     protected void FindActiveCharacters()
     {
@@ -41,13 +41,14 @@ public class InformationPanelManager : MonoBehaviour
         else
         {
             T data = _interfaceCharacterData.GetCharacterData<T>();
+            _level = _interfaceCharacterData.Level + 1;
             return data;
         }
     }
 
-    protected BuildingData GetDataFromPrefab(Tower tower)
+    protected BuildingData GetDataFromPrefab<T>(T miner) where T: Building 
     {
-        IBuildingData iData = tower.GetComponent<IBuildingData>();
+        IBuildingData iData = miner.GetComponent<IBuildingData>();
         BuildingData data = iData.GetData(iData.DataPath);
         return data;
     }

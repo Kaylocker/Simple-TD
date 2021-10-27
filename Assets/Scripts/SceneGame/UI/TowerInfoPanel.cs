@@ -15,7 +15,6 @@ public class TowerInfoPanel : InformationPanelManager
     [SerializeField] private Tower _tower;
 
     private BuildingData _buildingData;
-    private int _level;
 
     private new void Start()
     {
@@ -27,15 +26,11 @@ public class TowerInfoPanel : InformationPanelManager
         {
             _buildingData = GetDataFromPrefab(_tower);
         }
-        else
-        {
-            _level = _interfaceCharacterData.Level;
-        }
 
-        GetCharacteristics();
+        SetTextInfoOfCharacteristics();
     }
 
-    private void GetCharacteristics()
+    private void SetTextInfoOfCharacteristics()
     {
         _damage.text = (_buildingData.Levels[_level].DamageMin + " - " + _buildingData.Levels[_level].DamageMax).ToString();
         _speed.text = _buildingData.Levels[_level].ReloadTime.ToString();

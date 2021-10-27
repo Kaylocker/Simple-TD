@@ -8,7 +8,7 @@ public class BuildingMenu : MonoBehaviour
     public event Action OnSold;
     public event Action OnDisableMenu;
 
-    [SerializeField] MenuButton[] _buttons;
+    [SerializeField] ButtonCharacterMenu[] _buttons;
 
     private Building _building;
     private BuildingData _buildingData;
@@ -26,11 +26,6 @@ public class BuildingMenu : MonoBehaviour
     }
     public Building ActiveBuilding { get => _building; }
 
-    private void Awake()
-    {
-        _sprite = GetComponent<SpriteRenderer>();
-    }
-
     private void OnEnable()
     {
         DefinePositionOfInformationPanelOnMenu();
@@ -38,24 +33,13 @@ public class BuildingMenu : MonoBehaviour
 
     public void DefinePositionOfInformationPanelOnMenu()
     {
-        SetAdditiontalOffsetStatus();
-
-        float yOffset = 0;
-
-        if (_basePosition.y > 0)
-        {
-            yOffset = -_sprite.bounds.size.y / 2;
-        }
-        else
-        {
-            yOffset = _sprite.bounds.size.y / 2;
-        }
-
         foreach (var item in _buttons)
         {
             if (item != null)
             {
-                item.SetMenuPosition(new Vector3(transform.position.x, (transform.position.y + yOffset), transform.position.z), _basePosition);
+                _sprite = GetComponent<SpriteRenderer>();
+                item.SetMenuPosition(transform.position);
+                item.SetOffsetPositionInfoPanel(new Vector3(0, _sprite.bounds.size.y / 2, 0));
             }
         }
     }
@@ -88,16 +72,6 @@ public class BuildingMenu : MonoBehaviour
         }
 
         return false;
-    }
-
-    private void SetAdditiontalOffsetStatus()
-    {
-        bool isNeedAdditiontalOffset = (_buttons.Length + 1) % 2 != 0;
-
-        foreach (var item in _buttons)
-        {
-            item.SetAdditiontalOffsetFlag(isNeedAdditiontalOffset);
-        }
     }
 
     public void SetBuilding(Building building)
