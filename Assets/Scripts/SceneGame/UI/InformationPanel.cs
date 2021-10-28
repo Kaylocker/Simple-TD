@@ -1,7 +1,9 @@
 using UnityEngine;
+using System;
 
-public class InformationPanelManager : MonoBehaviour
+public class InformationPanel : MonoBehaviour
 {
+    public event Action OnUpgradedCharacter;
     protected Character [] _characters;
     protected ICharacterData _interfaceCharacterData;
     protected int _level;
@@ -51,5 +53,11 @@ public class InformationPanelManager : MonoBehaviour
         IBuildingData iData = miner.GetComponent<IBuildingData>();
         BuildingData data = iData.GetData(iData.DataPath);
         return data;
+    }
+
+    public void OnUpgradedCharacterLevel()
+    {
+        _level++;
+        OnUpgradedCharacter?.Invoke();
     }
 }

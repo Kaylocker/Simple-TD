@@ -79,7 +79,6 @@ public class BaseOfBuilding : MonoBehaviour
             _activeMenu = menu.GetComponent<BuildingMenu>();
             _activeMenu.BasePosition = transform.position;
             _activeMenu.SetBuilding(_building);
-
             _activeMenu.OnBuilt += Build;
             _activeMenu.OnDisableMenu += DisactivatedMenu;
             _activeMenu.OnDisableMenu += DisableBaseBackLight;
@@ -89,7 +88,8 @@ public class BaseOfBuilding : MonoBehaviour
             menu = Instantiate(_upgradeMenuPrefab, _positionMenu, Quaternion.identity);
             _activeMenu = menu.GetComponent<BuildingMenu>();
             _activeMenu.BasePosition = transform.position;
-
+            _activeMenu.SetBuilding(_building);
+            _activeMenu.CheckIsCharacterHaveInformationPanel();
             _activeMenu.OnUpgraded += _building.UpgradeLevel;
             _activeMenu.OnSold += OnSoldedBuilding;
             _activeMenu.OnSold += _building.Sold;

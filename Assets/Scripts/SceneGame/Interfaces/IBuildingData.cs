@@ -1,5 +1,5 @@
 
-public interface IBuildingData
+public interface IBuildingData : ICharacterData
 {
     public string DataPath { get; }
 

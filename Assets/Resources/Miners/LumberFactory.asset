@@ -15,17 +15,81 @@ MonoBehaviour:
   Levels:
   - GoldCost: 16
     WoodCost: 2
-    GoldPerTime: 1
-    WoodPerTime: 2
+    GoldPerTime: 0
+    WoodPerTime: 1
     DamageMin: 0
     DamageMax: 0
-    ReloadTime: 1
+    ReloadTime: 21
     RadiusFiring: 0
   - GoldCost: 32
     WoodCost: 4
-    GoldPerTime: 1
+    GoldPerTime: 0
+    WoodPerTime: 2
+    DamageMin: 0
+    DamageMax: 0
+    ReloadTime: 20
+    RadiusFiring: 0
+  - GoldCost: 64
+    WoodCost: 8
+    GoldPerTime: 0
     WoodPerTime: 4
     DamageMin: 0
     DamageMax: 0
-    ReloadTime: 0.9
+    ReloadTime: 19.5
+    RadiusFiring: 0
+  - GoldCost: 128
+    WoodCost: 16
+    GoldPerTime: 0
+    WoodPerTime: 8
+    DamageMin: 0
+    DamageMax: 0
+    ReloadTime: 19
+    RadiusFiring: 0
+  - GoldCost: 256
+    WoodCost: 32
+    GoldPerTime: 0
+    WoodPerTime: 16
+    DamageMin: 0
+    DamageMax: 0
+    ReloadTime: 18
+    RadiusFiring: 0
+  - GoldCost: 512
+    WoodCost: 64
+    GoldPerTime: 0
+    WoodPerTime: 32
+    DamageMin: 0
+    DamageMax: 0
+    ReloadTime: 17.5
+    RadiusFiring: 0
+  - GoldCost: 1024
+    WoodCost: 128
+    GoldPerTime: 0
+    WoodPerTime: 64
+    DamageMin: 0
+    DamageMax: 0
+    ReloadTime: 17
+    RadiusFiring: 0
+  - GoldCost: 2048
+    WoodCost: 256
+    GoldPerTime: 0
+    WoodPerTime: 128
+    DamageMin: 0
+    DamageMax: 0
+    ReloadTime: 16.5
+    RadiusFiring: 0
+  - GoldCost: 4096
+    WoodCost: 512
+    GoldPerTime: 0
+    WoodPerTime: 256
+    DamageMin: 0
+    DamageMax: 0
+    ReloadTime: 16
+    RadiusFiring: 0
+  - GoldCost: 8192
+    WoodCost: 1024
+    GoldPerTime: 0
+    WoodPerTime: 512
+    DamageMin: 0
+    DamageMax: 0
+    ReloadTime: 15
     RadiusFiring: 0

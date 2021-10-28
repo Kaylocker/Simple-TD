@@ -7,15 +7,15 @@ public class ResourcesMiner : Building
     protected float _timeBetweenMine;
     protected WaitForSeconds _delayMining;
 
-    //private void Start()
-    //{
-    //    StartCoroutine(Mining());
-    //}
-
-    private void OnEnable()
+    protected void Go(string dataPath)
     {
+        _resources = FindObjectOfType<ResourcesManager>();
+        SetCharacterData(dataPath);
+        SetCharacteristics();
         OnUpgraded += SetCharacteristics;
+        StartCoroutine(Mining());
     }
+
 
     private void OnDisable()
     {

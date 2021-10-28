@@ -17,9 +17,9 @@ public class Level
     public int WoodCost;
 
     [Space]
-    [Range(1, 10000)]
+    [Range(0f, 10000)]
     public int GoldPerTime;
-    [Range(1, 10000)]
+    [Range(0f, 10000)]
     public int WoodPerTime;
 
     [Space]

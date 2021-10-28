@@ -10,7 +10,7 @@ public class CannonTower : Tower, IBuildingData
     private void Awake()
     {
         _resources = FindObjectOfType<ResourcesManager>();
-        SetBuildingType(DataPath);
+        SetCharacterData(DataPath);
         SetCharacteristics();
         InstantiateRangeRadius(_circleRange);
         _projectile = _projectilePrefab;

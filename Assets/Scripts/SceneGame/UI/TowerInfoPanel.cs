@@ -2,7 +2,7 @@ using UnityEngine;
 using TMPro;
 
 
-public class TowerInfoPanel : InformationPanelManager
+public class TowerInfoPanel : InformationPanel
 {
     [SerializeField] private TextMeshProUGUI _damage;
     [Space]
@@ -28,6 +28,8 @@ public class TowerInfoPanel : InformationPanelManager
         }
 
         SetTextInfoOfCharacteristics();
+
+        OnUpgradedCharacter += SetTextInfoOfCharacteristics;
     }
 
     private void SetTextInfoOfCharacteristics()

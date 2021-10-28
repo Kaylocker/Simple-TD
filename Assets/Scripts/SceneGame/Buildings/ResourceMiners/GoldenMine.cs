@@ -1,4 +1,3 @@
-using UnityEngine;
 
 public class GoldenMine : ResourcesMiner, IBuildingData
 {
@@ -6,9 +5,6 @@ public class GoldenMine : ResourcesMiner, IBuildingData
 
     private void Awake()
     {
-        _resources = FindObjectOfType<ResourcesManager>();
-        SetBuildingType(DataPath);
-        SetCharacteristics();
-        StartCoroutine(Mining());
+        Go(DataPath);
     }
 }

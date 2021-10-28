@@ -1,9 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class MinerInfoPanel : InformationPanelManager
+public class MinerInfoPanel : InformationPanel
 {
     [SerializeField] private TextMeshProUGUI _resourcersPerTime;
     [Space]
@@ -29,11 +27,13 @@ public class MinerInfoPanel : InformationPanelManager
         }
 
         SetTextInfoOfCharacteristics();
+
+        OnUpgradedCharacter += SetTextInfoOfCharacteristics;
     }
 
     private void SetTextInfoOfCharacteristics()
     {
-        _resourcersPerTime.text = (_buildingData.Levels[_level].DamageMin + " - " + _buildingData.Levels[_level].DamageMax).ToString();
+        _resourcersPerTime.text = (_buildingData.Levels[_level].GoldPerTime + _buildingData.Levels[_level].WoodPerTime).ToString();
         _delayBetweenFarm.text = _buildingData.Levels[_level].ReloadTime.ToString();
         _goldCost.text = _buildingData.Levels[_level].GoldCost.ToString();
         _woodCost.text = _buildingData.Levels[_level].WoodCost.ToString();

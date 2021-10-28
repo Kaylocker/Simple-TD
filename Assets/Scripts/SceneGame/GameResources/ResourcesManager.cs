@@ -15,8 +15,8 @@ public class ResourcesManager : MonoBehaviour
 
     private void Start()
     {
-        ChangeGold(30);
-        ChangeWood(30);
+        ChangeGold(2000);
+        ChangeWood(2000);
     }
     
     public void ChangeGold(int value)
@@ -62,7 +62,7 @@ public class ResourcesManager : MonoBehaviour
         OnWoodChanged.RemoveListener(WoodChange);
     }
 
-    public void MakePurchase(BuildingData buildingData, Building building)
+    public void MakePurchase(BuildingData buildingData, Character building)
     {
         int level = building.Level;
 
@@ -70,10 +70,10 @@ public class ResourcesManager : MonoBehaviour
         ChangeWood(-buildingData.Levels[level].WoodCost);
     }
 
-    public void TakeRefund(Building building)
+    public void TakeRefund(Character character)
     {
-        int totalRefundGold = (int)(building.TotalGoldCost * _refundPersentage);
-        int totalRefundWood = (int)(building.TotalWoodCost * _refundPersentage);
+        int totalRefundGold = (int)(character.TotalGoldCost * _refundPersentage);
+        int totalRefundWood = (int)(character.TotalWoodCost * _refundPersentage);
 
         ChangeGold(totalRefundGold);
         ChangeWood(totalRefundWood);
