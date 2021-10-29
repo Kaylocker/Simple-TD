@@ -13,12 +13,18 @@ MonoBehaviour:
   m_Name: Level1
   m_EditorClassIdentifier: 
   Waves:
-  - CountEnemies: 10
-    WaitToNextWave: 9
+  - StartGoldAmount: 0
+    StartWoodAmount: 0
+    CountEnemies: 10
+    WaitToNextWave: 10
     EnemyPrefabs: {fileID: 6497447425308460322, guid: 89ba3618d7250204e9723509670eea98, type: 3}
-  - CountEnemies: 10
-    WaitToNextWave: 5
+  - StartGoldAmount: 0
+    StartWoodAmount: 0
+    CountEnemies: 10
+    WaitToNextWave: 15
     EnemyPrefabs: {fileID: 6497447425308460322, guid: 89ba3618d7250204e9723509670eea98, type: 3}
-  - CountEnemies: 10
-    WaitToNextWave: 5
-    EnemyPrefabs: {fileID: 3312625624240863104, guid: 63ac9dc2b4337c448937817b8c9eeb73, type: 3}
+  - StartGoldAmount: 0
+    StartWoodAmount: 0
+    CountEnemies: 10
+    WaitToNextWave: 10
+    EnemyPrefabs: {fileID: 6497447425308460322, guid: 89ba3618d7250204e9723509670eea98, type: 3}

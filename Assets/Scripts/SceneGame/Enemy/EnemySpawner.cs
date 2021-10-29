@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class EnemySpawner : MonoBehaviour
+public class EnemySpawner : EnemySpawnerEvents
 {
     [SerializeField] Waypoints _waypoints;
 
@@ -13,6 +13,9 @@ public class EnemySpawner : MonoBehaviour
     {
         int currentLevel = new LevelNameData().GetLevelIndex();
         _levelData = Resources.Load<LevelData>($"Levels/Level{currentLevel}");
+        OnChangedWave?.Invoke(_indexWave, _levelData.Waves.Count);
+        OnResetTimeToNextWave?.Invoke(_levelData.Waves[_indexWave].WaitToNextWave);
+        Invoke("ActivateWave", _levelData.Waves[_indexWave].WaitToNextWave);
     }
 
     public void ActivateWave()
@@ -22,6 +25,8 @@ public class EnemySpawner : MonoBehaviour
 
     public IEnumerator GenerateWave()
     {
+        OnChangedWave?.Invoke(_indexWave, _levelData.Waves.Count);
+
         WaitForSeconds delayBetweenSpawnEnemies = new WaitForSeconds(DELAY_BETWEEN_ENEMIES_SPAWNING);
         int firstWaypoint = 0;
 
@@ -36,9 +41,12 @@ public class EnemySpawner : MonoBehaviour
 
         _indexWave++;
 
+
         if (_indexWave < _levelData.Waves.Count)
         {
+            OnResetTimeToNextWave?.Invoke(_levelData.Waves[_indexWave].WaitToNextWave);
             Invoke("ActivateWave", _levelData.Waves[_indexWave].WaitToNextWave);
         }
     }
+
 }

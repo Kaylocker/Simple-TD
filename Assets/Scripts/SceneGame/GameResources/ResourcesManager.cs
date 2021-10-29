@@ -56,6 +56,7 @@ public class ResourcesManager : MonoBehaviour
         OnGoldChanged.AddListener(GoldChange);
         OnWoodChanged.AddListener(WoodChange);
     }
+
     public void RemoveListeners(UnityAction<int> GoldChange, UnityAction<int> WoodChange)
     {
         OnGoldChanged.RemoveListener(GoldChange);
