@@ -26,6 +26,8 @@ public class MinerInfoPanel : InformationPanel
             _buildingData = GetDataFromPrefab(_miner);
         }
 
+        _maxLevel = _buildingData.Levels.Count - 1;
+      
         SetTextInfoOfCharacteristics();
 
         OnUpgradedCharacter += SetTextInfoOfCharacteristics;

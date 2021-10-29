@@ -27,8 +27,9 @@ public class TowerInfoPanel : InformationPanel
             _buildingData = GetDataFromPrefab(_tower);
         }
 
-        SetTextInfoOfCharacteristics();
+        _maxLevel = _buildingData.Levels.Count - 1;
 
+        SetTextInfoOfCharacteristics();
         OnUpgradedCharacter += SetTextInfoOfCharacteristics;
     }
 

@@ -6,7 +6,7 @@ public class InformationPanel : MonoBehaviour
     public event Action OnUpgradedCharacter;
     protected Character [] _characters;
     protected ICharacterData _interfaceCharacterData;
-    protected int _level;
+    protected int _level, _maxLevel;
 
     protected void Start()
     {
@@ -58,6 +58,12 @@ public class InformationPanel : MonoBehaviour
     public void OnUpgradedCharacterLevel()
     {
         _level++;
+
+        if (_level >= _maxLevel)
+        {
+            _level = _maxLevel;
+        }
+        
         OnUpgradedCharacter?.Invoke();
     }
 }

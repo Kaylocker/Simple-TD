@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class ButtonCharacterMenu : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class ButtonCharacterMenu : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
 {
     public Action<InformationPanel> OnCreatedPanel;
 
@@ -17,7 +17,6 @@ public class ButtonCharacterMenu : MonoBehaviour, IPointerEnterHandler, IPointer
     {
         _panelPosition = transform.position;
     }
-
     public void SetOffsetPositionInfoPanel(Vector3 offset)
     {
         _panelPositionOffset = offset;
@@ -60,19 +59,17 @@ public class ButtonCharacterMenu : MonoBehaviour, IPointerEnterHandler, IPointer
         }
     }
 
-    public void OnClickOnBuyCharacterButton()
+    public void OnPointerDown(PointerEventData eventData)
     {
         if (_activePanel != null)
         {
             OnCreatedPanel?.Invoke(_activePanel);
-            _activePanel.OnUpgradedCharacterLevel();
             _activePanel.gameObject.SetActive(false);
         }
     }
 
     public void OnClickedOnUpgradeButton()
     {
-        //_activePanel.OnUpgradedCharacterLevel();
         _activePanel.gameObject.SetActive(false);
     }
 
@@ -84,10 +81,5 @@ public class ButtonCharacterMenu : MonoBehaviour, IPointerEnterHandler, IPointer
     public void SetActiveInformationPanel(InformationPanel informationPanel)
     {
         _activePanel = informationPanel;
-    }
-
-    public InformationPanel GetActiveInformationPanel()
-    {
-        return _activePanel;
     }
 }

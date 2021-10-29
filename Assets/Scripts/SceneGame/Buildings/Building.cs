@@ -6,12 +6,13 @@ public class Building : Character, ICharacterData
     public UnityAction OnSelected;
     public UnityAction OnDeselected;
 
-    protected BuildingData _data;
+    //protected BuildingData _data;
 
     public BuildingData Data { get => _data; }
 
     protected void Start()
     {
+        _informationPanel.OnUpgradedCharacterLevel();
         OnSelected += ActivateSelectedStatus;
         OnDeselected += DisactivateSelectedStatus;
     }

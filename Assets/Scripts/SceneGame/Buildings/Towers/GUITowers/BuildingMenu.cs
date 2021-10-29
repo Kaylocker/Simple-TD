@@ -4,7 +4,6 @@ using System;
 public class BuildingMenu : MonoBehaviour
 {
     public event Action<Building> OnBuilt;
-    public event Action OnEnoughResources;
     public event Action OnUpgraded;
     public event Action OnSold;
     public event Action OnDisableMenu;
@@ -35,7 +34,6 @@ public class BuildingMenu : MonoBehaviour
         foreach (var item in _buttons)
         {
             item.OnCreatedPanel += SetLastActiveInformationPanel;
-            OnEnoughResources += item.OnClickOnBuyCharacterButton;
             OnUpgraded += item.OnClickedOnUpgradeButton;
             OnSold += item.OnClickedOnSellCharacterButton;
         }
@@ -44,22 +42,6 @@ public class BuildingMenu : MonoBehaviour
     private void SetLastActiveInformationPanel(InformationPanel lastInformationPanel)
     {
         _lastActiveInformationPanel = lastInformationPanel;
-    }
-
-
-    private InformationPanel GetConcreteInformationPanel()
-    {
-        foreach (var item in _buttons)
-        {
-            InformationPanel informationPanel = item.GetActiveInformationPanel();
-
-            if (informationPanel != null)
-            {
-                return informationPanel;
-            }
-        }
-
-        return null;
     }
 
     public void DefinePositionOfInformationPanelOnMenu()
@@ -84,7 +66,6 @@ public class BuildingMenu : MonoBehaviour
             return;
         }
 
-        OnEnoughResources?.Invoke();
 
         GameObject gameObjectBuilding = Instantiate(tower.gameObject, _basePosition, Quaternion.identity);
         _building = gameObjectBuilding.GetComponent<Building>();
@@ -109,7 +90,7 @@ public class BuildingMenu : MonoBehaviour
         return false;
     }
 
-    public void CheckIsCharacterHaveInformationPanel()
+    public void CheckIsCharacterAlreadyHaveInformationPanel()
     {
         InformationPanel informationPanel = null; ;
 

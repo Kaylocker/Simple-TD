@@ -77,27 +77,25 @@ public class BaseOfBuilding : MonoBehaviour
         {
             menu = Instantiate(_buyMenuPrefab, _positionMenu, Quaternion.identity);
             _activeMenu = menu.GetComponent<BuildingMenu>();
-            _activeMenu.BasePosition = transform.position;
             _activeMenu.SetBuilding(_building);
             _activeMenu.OnBuilt += Build;
-            _activeMenu.OnDisableMenu += DisactivatedMenu;
             _activeMenu.OnDisableMenu += DisableBaseBackLight;
         }
         else
         {
             menu = Instantiate(_upgradeMenuPrefab, _positionMenu, Quaternion.identity);
             _activeMenu = menu.GetComponent<BuildingMenu>();
-            _activeMenu.BasePosition = transform.position;
             _activeMenu.SetBuilding(_building);
-            _activeMenu.CheckIsCharacterHaveInformationPanel();
+            _activeMenu.CheckIsCharacterAlreadyHaveInformationPanel();
             _activeMenu.OnUpgraded += _building.UpgradeLevel;
             _activeMenu.OnSold += OnSoldedBuilding;
             _activeMenu.OnSold += _building.Sold;
-            _activeMenu.OnDisableMenu += DisactivatedMenu;
 
             _building.OnSelected?.Invoke();
         }
 
+        _activeMenu.OnDisableMenu += DisactivatedMenu;
+        _activeMenu.BasePosition = transform.position;
         _isSomeMenuActive = true;
     }
 

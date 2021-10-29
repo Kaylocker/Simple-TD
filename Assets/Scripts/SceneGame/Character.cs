@@ -20,6 +20,11 @@ public class Character : MonoBehaviour
 
     public int Level { get => _currentLevel; }
 
+    private void OnEnable()
+    {
+        //_informationPanel.OnUpgradedCharacterLevel();
+    }
+
     public void SetInformationPanel(InformationPanel informationPanel)
     {
         _informationPanel = informationPanel;
@@ -76,13 +81,6 @@ public class Character : MonoBehaviour
     {
         return (T)(_data as ScriptableObject);
     }
-
-    //protected T GetData<T>(T characterData) where T : ScriptableObject
-    //{
-    //    T data = _interfaceCharacterData.GetCharacterData<T>();
-    //    _level = _interfaceCharacterData.Level + 1;
-    //    return data;
-    //}
 
     public void SetCharacterData<T>(T data) where T : ScriptableObject
     {
