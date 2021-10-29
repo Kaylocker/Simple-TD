@@ -89,7 +89,7 @@ public class BaseOfBuilding : MonoBehaviour
             _activeMenu.CheckIsCharacterAlreadyHaveInformationPanel();
             _activeMenu.OnUpgraded += _building.UpgradeLevel;
             _activeMenu.OnSold += OnSoldedBuilding;
-            _activeMenu.OnSold += _building.Sold;
+            _activeMenu.OnSold += _building.SoldCharacter;
 
             _building.OnSelected?.Invoke();
         }

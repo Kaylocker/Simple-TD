@@ -11,7 +11,6 @@ public class MageTower : Tower, IBuildingData
     {
         _resources = FindObjectOfType<ResourcesManager>();
         SetCharacterData(DataPath);
-        SetCharacteristics();
         InstantiateRangeRadius(_circleRange);
         _projectile = _projectilePrefab;
     }

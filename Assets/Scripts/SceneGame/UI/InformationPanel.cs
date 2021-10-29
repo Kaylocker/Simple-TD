@@ -48,6 +48,20 @@ public class InformationPanel : MonoBehaviour
         }
     }
 
+    protected void GetData(ref BuildingData data)
+    {
+        if(_interfaceCharacterData == null)
+        {
+            data = null;
+        }
+        else
+        {
+            BuildingData buildingData = _interfaceCharacterData.GetCharacterData<BuildingData>();
+            _level = _interfaceCharacterData.Level + 1;
+            data = buildingData;
+        }
+    }
+
     protected BuildingData GetDataFromPrefab<T>(T miner) where T: Building 
     {
         IBuildingData iData = miner.GetComponent<IBuildingData>();
@@ -55,7 +69,7 @@ public class InformationPanel : MonoBehaviour
         return data;
     }
 
-    public void OnUpgradedCharacterLevel()
+    public void UpgradedCharacterLevel()
     {
         _level++;
 

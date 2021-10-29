@@ -8,10 +8,9 @@ public class Character : MonoBehaviour
 
     protected ResourcesManager _resources;
     protected InformationPanel _informationPanel;
-    protected BuildingData _data;
     protected ICharacterData _characterData;
 
-    protected int _currentLevel = -1;
+    protected int _currentLevel = -1, _maxLevel;
     protected int _totalGoldCost, _totalWoodCost;
 
     public bool IsSelected { get; protected set; }
@@ -19,11 +18,6 @@ public class Character : MonoBehaviour
     public int TotalWoodCost { get => _totalWoodCost; }
 
     public int Level { get => _currentLevel; }
-
-    private void OnEnable()
-    {
-        //_informationPanel.OnUpgradedCharacterLevel();
-    }
 
     public void SetInformationPanel(InformationPanel informationPanel)
     {
@@ -37,53 +31,46 @@ public class Character : MonoBehaviour
 
     public virtual void UpgradeLevel()
     {
-        if (_currentLevel >= _data.Levels.Count - 1)
+        if (_currentLevel >= _maxLevel)
         {
-            _currentLevel = _data.Levels.Count - 1;
+            _currentLevel = _maxLevel;
 
             return;
         }
 
-        if (_informationPanel != null)
-        {
-            _informationPanel.OnUpgradedCharacterLevel();
-        }
-
         _currentLevel++;
-        UpgradeTotalCost();
 
         OnUpgraded?.Invoke();
-
-        MakePurchase();
     }
 
-    private void MakePurchase()
-    {
-        _resources.MakePurchase(_data, this);
-    }
-
-    public void Sold()
+    public void SoldCharacter()
     {
         OnSolded?.Invoke();
         _resources.TakeRefund(this);
     }
 
-    protected void UpgradeTotalCost()
+    protected void SetMaxLevel(int maxLevel)
     {
-        _totalGoldCost += _data.Levels[_currentLevel].GoldCost;
-        _totalWoodCost += _data.Levels[_currentLevel].WoodCost;
-
-        print(_totalGoldCost);
-        print(_totalWoodCost);
-    }
-
-    public T GetCharacterData<T>() where T : ScriptableObject
-    {
-        return (T)(_data as ScriptableObject);
+        _maxLevel = maxLevel;
     }
 
     public void SetCharacterData<T>(T data) where T : ScriptableObject
     {
         _characterData = (ICharacterData)data;
+    }
+
+    public void SetData(IBuildingData buildingData)
+    {
+        _characterData = buildingData;
+    }
+
+    public T GetCharacterData<T>() where T : ScriptableObject
+    {
+        return (T)(_characterData as ScriptableObject);
+    }
+
+    public void DestroyCharacter()
+    {
+        Destroy(gameObject);
     }
 }

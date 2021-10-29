@@ -5,6 +5,6 @@ public class LumberFactory : ResourcesMiner, IBuildingData
 
     private void Awake()
     {
-        Go(DataPath);
+        SetSettings(DataPath);
     }
 }

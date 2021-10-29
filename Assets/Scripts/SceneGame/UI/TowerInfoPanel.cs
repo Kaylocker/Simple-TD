@@ -1,7 +1,6 @@
 using UnityEngine;
 using TMPro;
 
-
 public class TowerInfoPanel : InformationPanel
 {
     [SerializeField] private TextMeshProUGUI _damage;

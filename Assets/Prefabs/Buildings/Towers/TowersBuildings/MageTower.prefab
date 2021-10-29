@@ -95,5 +95,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f33e79f2628c4e478517a62440b2f59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _projectilePrefab: {fileID: 138650144648534943, guid: b02593ce0713d1841b018148e700311c, type: 3}
+  _projectilePrefab: {fileID: -6019265160434727328, guid: b02593ce0713d1841b018148e700311c, type: 3}
   _circleRange: {fileID: 884257780424299143, guid: c65b6d242719a5346a04a9e04cfa741a, type: 3}

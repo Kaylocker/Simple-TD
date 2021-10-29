@@ -3,15 +3,14 @@ using System.Collections;
 
 public class ResourcesMiner : Building
 {
-    protected int _goldPerDelay, _woodPerDelay;
+    protected int _goldPerTime, _woodPerTime;
     protected float _timeBetweenMine;
     protected WaitForSeconds _delayMining;
 
-    protected void Go(string dataPath)
+    protected void SetSettings(string dataPath)
     {
         _resources = FindObjectOfType<ResourcesManager>();
         SetCharacterData(dataPath);
-        SetCharacteristics();
         OnUpgraded += SetCharacteristics;
         StartCoroutine(Mining());
     }
@@ -24,8 +23,8 @@ public class ResourcesMiner : Building
 
     protected void SetCharacteristics()
     {
-        _goldPerDelay = _data.Levels[_currentLevel].GoldPerTime;
-        _woodPerDelay = _data.Levels[_currentLevel].WoodPerTime;
+        _goldPerTime = _data.Levels[_currentLevel].GoldPerTime;
+        _woodPerTime = _data.Levels[_currentLevel].WoodPerTime;
         _timeBetweenMine = _data.Levels[_currentLevel].ReloadTime;
         _delayMining = new WaitForSeconds(_timeBetweenMine);
     }
@@ -34,8 +33,8 @@ public class ResourcesMiner : Building
     {
         do
         {
-            _resources.ChangeGold(_goldPerDelay);
-            _resources.ChangeWood(_woodPerDelay);
+            _resources.ChangeGold(_goldPerTime);
+            _resources.ChangeWood(_woodPerTime);
 
             yield return _delayMining;
 

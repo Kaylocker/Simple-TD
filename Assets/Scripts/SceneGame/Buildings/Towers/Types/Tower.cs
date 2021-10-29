@@ -16,7 +16,8 @@ public class Tower : Building
 
     protected float _timeDelayReload, _damageMin, _damageMax, _radiusFiring;
     protected bool _isEnemyFinded;
-
+    public SpriteRenderer ActiveRadius { get => _activeRadius; }
+    
     private new void Start()
     {
         StartCoroutine(FindEnemy());
@@ -27,7 +28,7 @@ public class Tower : Building
     {
         OnSelected += EnableRadiusTower;
         OnDeselected += DisableRadiusTower;
-        OnSolded += SelfDestruct;
+        OnSolded += DestroyRadius;
         OnUpgraded += SetCharacteristics;
     }
 
@@ -35,13 +36,8 @@ public class Tower : Building
     {
         OnSelected -= EnableRadiusTower;
         OnDeselected -= DisableRadiusTower;
-        OnSolded -= SelfDestruct;
+        OnSolded -= DestroyRadius;
         OnUpgraded -= SetCharacteristics;
-    }
-
-    public SpriteRenderer ActiveRadius
-    {
-        get => _activeRadius;
     }
 
     protected IEnumerator FindEnemy()
@@ -85,7 +81,7 @@ public class Tower : Building
             }
             else
             {
-                activeProjectileComponent.SetEnemy(_target);
+                activeProjectileComponent.SetTarget(_target);
                 activeProjectileComponent.SetDamageRange(_damageMin, _damageMax);
             }
 
@@ -141,7 +137,7 @@ public class Tower : Building
         float sizeRadius = _data.Levels[_currentLevel].RadiusFiring;
         _firingCircleZone = new Vector3(sizeRadius, sizeRadius, 0);
 
-        if (_currentLevel > 0)
+        if (_currentLevel >= 0)
         {
             SetRadiusSize();
         }
@@ -157,9 +153,8 @@ public class Tower : Building
         _activeRadius.gameObject.SetActive(true);
     }
 
-    protected void SelfDestruct()
+    protected void DestroyRadius()
     {
         Destroy(_activeRadius.gameObject);
-        Destroy(gameObject);
     }
 }

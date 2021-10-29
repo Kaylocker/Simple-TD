@@ -35,7 +35,7 @@ MonoBehaviour:
     WoodPerTime: 0
     DamageMin: 0.4
     DamageMax: 0.65
-    ReloadTime: 0.041
+    ReloadTime: 0.41
     RadiusFiring: 3.4
   - GoldCost: 256
     WoodCost: 256

@@ -91,7 +91,7 @@ GameObject:
   - component: {fileID: 972650367845677896}
   - component: {fileID: 972650367845677897}
   m_Layer: 0
-  m_Name: TowerCharacterUpgradeMenu
+  m_Name: BuildingUpgradeMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -177,7 +177,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _buttons:
   - {fileID: 4274810258411306746}
-  - {fileID: 6942855152028764524}
 --- !u!1 &3606186558793103390
 GameObject:
   m_ObjectHideFlags: 0
@@ -505,7 +504,6 @@ GameObject:
   - component: {fileID: 160099697075633381}
   - component: {fileID: 2907411508125019282}
   - component: {fileID: 3105668210984831635}
-  - component: {fileID: 6942855152028764524}
   m_Layer: 5
   m_Name: SellTowerButton
   m_TagString: Untagged
@@ -640,20 +638,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Delegates: []
---- !u!114 &6942855152028764524
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7487683334270034168}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1bac8430962e1a94fa2bc4c449089cf8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _informationPanel: {fileID: 8514833963315723945, guid: d95ec6c6e16cdeb42b81c0aee74fb156, type: 3}
-  _buildingPrefab: {fileID: 0}
 --- !u!1 &7571852180346569409
 GameObject:
   m_ObjectHideFlags: 0

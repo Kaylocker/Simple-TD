@@ -7,13 +7,15 @@ public class Enemy : MonoBehaviour, IEnemy
     public event Action OnKilled;
 
     [SerializeField] private ValueSystem _healthSystem = new ValueSystem();
-
     [SerializeField] private float _speed;
     [SerializeField] private float _health;
 
     private Waypoints _waypoints = null;
-
     private int _indexOfWaypoints = 0;
+
+    public float Speed { get => _speed; }
+    public float Health { get => _health; }
+    public Vector3 Position { get => transform.position; }
 
     private void Start()
     {
