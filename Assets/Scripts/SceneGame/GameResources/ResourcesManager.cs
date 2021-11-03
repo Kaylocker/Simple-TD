@@ -15,8 +15,8 @@ public class ResourcesManager : MonoBehaviour
 
     private void Start()
     {
-        ChangeGold(2000);
-        ChangeWood(2000);
+        ChangeGold(256);
+        ChangeWood(256);
     }
     
     public void ChangeGold(int value)
